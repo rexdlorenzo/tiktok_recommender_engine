@@ -10,7 +10,7 @@ show_pages([
         Page("pages/data_extraction_eda_ml.py", "Data Extraction, EDA and Machine Learning"),
         Page("pages/recommender_engine.py", "Recommender Engine"),
         Page("pages/conclusion.py", "Conclusion"),
-        Page("pages/final.py", "Final Slide")
+        Page("pages/final_thoughts.py", "Final Thoughts")
     ]
 )
 
