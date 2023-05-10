@@ -18,14 +18,28 @@ st.set_page_config(layout="wide")
 add_indentation()
 
 def recommender_engine():
+    
+    st.header("TIKTOK Recommender engine")
+
+    st.image("images/recommender_engine1.png")
+    st.image("images/recommender_engine2.png")
+    
+    st.markdown(
+        """
+        We developed a recommender engine tool that underground and rising Philippine artists can use for their music. 
+
+        With the top 5 tiktok playlists we have extracted from before, we will be feeding that to the Machine Model we have created. 
+
+        Once fed, we will be able to generate seed tracks per genre, which is what our recommender engine will use to detect which of the artist's songs are the best to promote on tiktok. 
+        """
+    )
+#####################################################
     my_client_id = st.secrets.cred.client_id
     my_client_secret = st.secrets.cred.client_secret
 
     client_credentials_manager = SpotifyClientCredentials(client_id=my_client_id,
                                                         client_secret=my_client_secret)
     sp = spotipy.Spotify(client_credentials_manager = client_credentials_manager)
-
-    st.title("TIKTOK Recommender engine")
 
     inp, res = st.columns(2)
 
@@ -146,4 +160,48 @@ def recommender_engine():
             res.write(f"Recommended Track for R&B: {rnb_recommendation_df.index[0]}")
 
 
+def artist1():
+    st.header("TIKTOK Reccomender engine: Sample Output 1")
+    st.image("images/bgyo.png")
+    st.markdown(
+        """
+        Okay, so this is how our streamlit recommender engine looks like.  So basically it has two parts.
+
+        Looking at your left side, we ask users to input their album and artist name.
+        
+        Then on the lower right side, 5 songs will be recommended along with their recommended genre once you hit submit.
+
+        For our presentation, we decided with 2 artist, for the first it would BGYO and their album Be Us to represent upbeat music. For the next one it would be clara benin, and indie, acoustic singer to represent slow songs.
+
+        The reason why we chose these artist is because we understand that music can quite varied, however upon our experience, upbeat and slow songs are usually the type of music we hear on tiktok. 
+
+        Looking at the results of BGYO, the songs recommended seem quite accurate with their music.
+
+        For EDM, PNGNP was recommended. It is fitting because in their album it is the song that has the most electronic beats.
+
+        And for the track extraordinary, it was resulted for both indie and pop. First, it is pop because it is very upbeat. And, It is also Indie because, some of the lines of this song is sung like an indie song. 
+
+        And the fact that extra-ordinary appeared twice despite that there are other songs, means our algorithm is really vying for this song.
+        """
+    )
+
+def artist2():
+    st.header("TIKTOK Reccomender engine: Sample Output 2")
+    st.image("images/clara_benin.png")
+    st.markdown(
+        """
+        Similarly, we decided to test our engine with a slow, album like clara benin's, human eyes.
+
+        As we look to the lower right side we can see the results.
+
+        We can see that kingdom come is generated for indie, as it has the a very indie, guiatary, and pop feel.
+
+        Then for EDM, although clara benin is generally an indie artist, blameless is one of the tracks in her album that uses percussion, which is why it is suggested for EDM.
+
+        So yeah this is our streamlit.
+        """
+    )
+
 recommender_engine()
+artist1()
+artist2()
