@@ -165,7 +165,7 @@ def recommender_engine():
 
 
 def artist1():
-    st.header("TIKTOK Reccomender engine: Sample Output 1")
+    st.header("TIKTOK Recommender engine: Sample Output 1 - Upbeat Album")
     st.image("images/bgyo.png")
     st.markdown(
         """
@@ -190,7 +190,7 @@ def artist1():
     )
 
 def artist2():
-    st.header("TIKTOK Reccomender engine: Sample Output 2")
+    st.header("TIKTOK Recommender engine: Sample Output 2 - Upbeat Album")
     st.image("images/clara_benin.png")
     st.markdown(
         """
