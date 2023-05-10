@@ -34,7 +34,7 @@ def trends():
         """
         As you can see on the image above, when a song becomes popular on TikTok through related hashtag, it increases the number of streams on other music services like Spotify.
 
-        Some of the examples are #blindinglightschallenge and #paubayachallenge which gained popularity in 2020 and 2021 respectively,
+        Some of the examples are #blindinglightschallenge and #paubayachallenge which gained popularity in 2020 and 2021 respectively.
 
         """
     )
