@@ -190,7 +190,7 @@ def artist1():
     )
 
 def artist2():
-    st.header("TIKTOK Recommender engine: Sample Output 2 - Upbeat Album")
+    st.header("TIKTOK Recommender engine: Sample Output 2 - Slow Album")
     st.image("images/clara_benin.png")
     st.markdown(
         """
