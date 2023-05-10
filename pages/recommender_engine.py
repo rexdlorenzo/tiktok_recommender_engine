@@ -198,7 +198,6 @@ def artist2():
 
         Then for EDM, although clara benin is generally an indie artist, blameless is one of the tracks in her album that uses percussion, which is why it is suggested for EDM.
 
-        So yeah this is our streamlit.
         """
     )
 
