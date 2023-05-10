@@ -13,70 +13,49 @@ import numpy as np
 
 sns.set()
 
-def summary():
-    # Write the title
-    st.title(
-        "SUMMARY"
-    )
-    st.subheader(
-        """
-        **GENERAL CONCLUSION:** Filipinos are ready with short term savings, but not for emergencies and old age. Support should be prioritized to low-income and low-education Filipinos.
-        """
-    )
-
-    # Partition the page into 2
-    col1, col2 = st.columns(2)
-
-
-    # Display text in column 1
-    col1.markdown("""
-    :flag-ph: \n 
-    Majority of Filipinos (64.5%) have savings; Ranks 4th in East Asia & Pacific region and 1st for lower middle income group in EA&P. \n\n
-    :female-doctor: \n
-    Medical expenses cause the biggest financial worry among Filipinos \n
-    :older_man: \n
-    Less than half (41.6%) of Filipinos have set aside money for long-term/old Age since the past year \n
-    :heavy_multiplication_x: :mortar_board: \n
-    Filipinos in the lowest 40% income quintile and with secondary education and less are less likely to have savings.
- """) 
-
-    # Display text in column 2
-    col2.markdown("""
-    :moneybag: \n
-    Most Filipinos with savings come from high-income households. Majority of low-income Filipinos and almost half of the middle class have no savings \n
-    :family: \n
-    More Filipinos will go to their families and friends than their own savings when there’s an emergency \n
-    :money_with_wings: \n
-    Lack of money and expensive bank fees are the top reasons that hinder Filipinos from saving. \n
-
-    
-    """)
-
-
-    st.subheader(
-        """
-        **RECOMMENDATION:** Implement rules and regulations that promote and support financial preparedness among Filipinos
-        """
-    )
+def conclusion1():
+    st.header("Conclusion 1")
+    st.image("images/conclusion1.png")
     st.markdown(
         """
+        Now moving forward to objective #1: the most prominent features that contribute to suitability on tiktok. 
 
-        :heavy_check_mark: Prioritize financial support to Filipinos with low Income and low Education
+        So for our 5 genres, pop, hiphop, EDM, r&b , and indie:
 
-        :heavy_check_mark: Regulations to lessen/remove bank fees for people incapable of maintaining the default amount
+        Indie has high instrumentalness, which makes sense since these types of music tend to have acoustic guitar beats.
 
-        :heavy_check_mark: Government partnerships with banks to enable affordable savings programs and microinsurance access for low-income Filipinos
+        For pop music: it has balance to every feature: danceable rhythm, and a positive or uplifting message. 
 
-        :heavy_check_mark: Government support on emergency funds for Filipinos
+        For Hip-hop: It's highest is speechiness, which makes sense because hiphop tends to have rap lyrics.
 
-        :heavy_check_mark: Improve government support on medical expenses
+        For electronic dance music or EDM:  it has high-energy beats, because it has drops and a focus on creating a party or club atmosphere.
 
-        
-        
-    
-        **Recommendations on further analysis:** 
-        :bar_chart:  Survey improvements- data with equal distribution per income quintile for more representative findings
-        """ 
+        For R&B: it typically has energetic tracks which feel fast, loud, and noisy.
+        """
+    )
+def conclusion2():
+    st.header("Conclusion 2")
+    st.image("images/conclusion2.png")
+    st.markdown(
+        """
+        The ML model we chose is Random Forest. 
+
+        Although XG boost scored higher in precision, recall, and F1, we still decided to choose random forest since it has the highest test score and accuracy. 
+
+        We deemed accuracy is the most important metric because we aim to create a recommender engine and we want to maximize the accuracy of our tool. 
+        """
+    )
+def conclusion3():
+    st.header("Conclusion 3")
+    st.image("images/conclusion3.png")
+    st.markdown(
+        """
+        For Objective #3: How are we  going to improve the popularity of rising Philippine artists given the data and ML model that we have created?
+
+        So, onto the next slide.
+        """
     )
 
-summary()
+conclusion1()
+conclusion2()
+conclusion3()
