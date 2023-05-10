@@ -13,14 +13,6 @@ import numpy as np
 
 sns.set()
 
-def load_data():
-    # Load the data
-    data = pd.read_csv(
-        "micro_world.csv",
-        encoding='ISO-8859-1'
-    )
-    return data
-
 def summary():
     # Write the title
     st.title(
@@ -31,8 +23,6 @@ def summary():
         **GENERAL CONCLUSION:** Filipinos are ready with short term savings, but not for emergencies and old age. Support should be prioritized to low-income and low-education Filipinos.
         """
     )
-
-
 
     # Partition the page into 2
     col1, col2 = st.columns(2)
@@ -48,9 +38,7 @@ def summary():
     Less than half (41.6%) of Filipinos have set aside money for long-term/old Age since the past year \n
     :heavy_multiplication_x: :mortar_board: \n
     Filipinos in the lowest 40% income quintile and with secondary education and less are less likely to have savings.
- """)
-
- 
+ """) 
 
     # Display text in column 2
     col2.markdown("""
@@ -63,8 +51,6 @@ def summary():
 
     
     """)
-
-
 
 
     st.subheader(
@@ -93,6 +79,4 @@ def summary():
         """ 
     )
 
-
-load_data()
 summary()

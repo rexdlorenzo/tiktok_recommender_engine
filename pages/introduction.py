@@ -13,33 +13,7 @@ import numpy as np
 
 sns.set()
 
-def load_data():
-    # Load the data
-    data = pd.read_csv(
-        "micro_world.csv",
-        encoding='ISO-8859-1'
-    )
-    return data
-
 def introduction():
-
-    # Load data
-    data = load_data()
-
-    philippine_data = data[
-        data['regionwb'] == 'East Asia & Pacific (excluding high income)'
-        ]
-
-    # Write the title and the subheader
-    st.title("The Philippines has high % population with savings compared to neighboring countries.")
-
-    #Insert graph on TOP EA&P countries in terms of %savings 
-    data = load_data()
-    dataeap = data[
-        data['regionwb'] == 'East Asia & Pacific (excluding high income)'
-        ]
-    dataeap['has_saved'] = dataeap['saved'].apply(
-    lambda x: 1 if x == 1 else 0)
     
     st.markdown(
         "According to the study, about 64.5% of Filipinos have saved or set aside money in the past year, whether using an account at a financial institution, mobile money account, savings club for any reason. In East Asia and Pacific region, Philippines ranked 4th for the highest % of people with savings and ranked 1st in the lower-middle income group in the region.")
@@ -59,18 +33,6 @@ def introduction():
         )
 
 
-    # Group the data and apply aggregations
-    grouped_data = dataeap.groupby(['economy', 'economycode', 'regionwb']).agg(total_saved=('saved', 'sum'),total_population=('wpid_random', 'count')).reset_index()
-    # Compute debit card ownership in %
-    grouped_data['% of population saved'] = grouped_data['total_saved']*100.0/grouped_data['total_population']
-    #Top EA&P countries in terms of % people with savings
-    top_10 = grouped_data.sort_values('% of population saved', ascending=False).head(10).reset_index(drop=True)
-    sns.set(font_scale=2)
-    fig, ax = plt.subplots(figsize=(10, 6))
-    cols = ['#DF8020' if (y == 'Philippines') else '#adbdc4' for y in top_10.economy]
-    sns.barplot(x="% of population saved", y="economy", data=top_10, palette=cols, ax=ax, orient='h').set(title='Top EA&P countries in terms of % people with savings')
-    st.pyplot(fig)
-   
     st.subheader(
         """.....but are we really doing great?"""
         )
@@ -80,42 +42,6 @@ def introduction():
         """
         )
 
-    #create function
-    def income_group(row):
-        if row['inc_q']==1:
-            return 'Poorest'
-        elif row['inc_q']==2:
-            return 'Poor'
-        elif row['inc_q']==3:
-            return 'Middle Class'
-        elif row['inc_q']==4:
-            return 'Rich' #borrow from bank/employer/lender
-        elif row['inc_q']==5:
-            return 'Richest'
-        else:
-            return 'unknown/no answer'
-
-    data['Income Group'] = data.apply(income_group, axis=1)
-    # Fetch Philippine data
-    philippine_data = data[
-        data['economy'] == 'Philippines'
-        ]
-    # Group the data and apply aggregations
-    grouped_dataph = philippine_data.groupby('Income Group').count()['wpid_random'].to_frame()
-    grouped_dataph = philippine_data.groupby(['economy', 'Income Group']).agg(
-    total_saved=('saved', 'sum'),
-    total_population=('wpid_random', 'count')
-    ).reset_index()
-    
-    
-    # Compute debit card ownership in %
-    grouped_dataph['% of population saved'] = grouped_dataph['total_saved']*100.0/grouped_dataph['total_population']
-    grouped_dataph['% of population with no savings'] = 100 - grouped_dataph['% of population saved']
-    top_10ph = grouped_dataph.sort_values('% of population with no savings', ascending=False).head(10).reset_index(drop=True)
-    sns.set(font_scale=2)
-    fig, ax = plt.subplots(figsize=(10, 6))
-    sns.barplot(x="Income Group", y="% of population with no savings", data=top_10ph, ax=ax, orient='v', color='#DF8020').set(title='Percentage of Filipinos with savings versus without savings')
-    st.pyplot(fig)
     
     st.subheader("""Are savings only for the rich?""")
 
@@ -123,30 +49,7 @@ def introduction():
         """More than half of low-income Filipinos and almost half of the middle class have no savings. 
     """
     )
-    grouped_dataph['% of population with savings'] = grouped_dataph['total_saved']*100.0/grouped_dataph['total_population']
-    grouped_dataph['% of population without savings'] = 100 - grouped_dataph['% of population with savings']
-    grouped_dataph['diff of with savings vs without savings'] = grouped_dataph['% of population with savings'] - grouped_dataph['% of population without savings']
-    grouped_dataph=grouped_dataph.sort_values('diff of with savings vs without savings',ascending=True)
-    
-    
-    sns.set(font_scale=2)
-    sns.set_style(style='white')
-    fig, ax = plt.subplots(figsize=(10, 6))
-    cols = ['#CC0000','#CC0000','#DF8020','#DF8020','#DF8020','#DF8020']
-    g1 = sns.barplot(y="diff of with savings vs without savings", x="Income Group", data=grouped_dataph, ax=ax, palette=cols)
-    g1.set_ylim(-25,80)
-    g1.set(title='Difference of with savings and without savings')  # add a title
-    g1.set(ylabel=None)  # remove the axis label
-    
-    for p in g1.patches:
-        height = p.get_height()
-    if height > 0:
-        g1.text(p.get_x()+p.get_width()/2., height+2, '{:.1f}%'.format(height), ha="center", fontsize=16)
-    else:
-        g1.text(p.get_x()+p.get_width()/2., height-7, '{:.1f}%'.format(height), ha="center", fontsize=16)
-    st.pyplot(fig)
-    
-    
+
     st.markdown(
         """More than half of low-income Filipinos and almost half of the middle class have no savings. 
     """
@@ -174,9 +77,4 @@ def introduction():
     )
 
  
-
-
-
-
-load_data()
 introduction()

@@ -20,7 +20,6 @@ sp = spotipy.Spotify(client_credentials_manager = client_credentials_manager)
 
 st.set_page_config(layout="wide")
 st.title("TIKTOK Recommender engine")
-st.subheader("A project by Rex, Ben, Zee, and Martel of DSF11 Eskwelabs")
 
 inp, res = st.columns(2)
 
