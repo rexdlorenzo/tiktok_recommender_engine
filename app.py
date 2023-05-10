@@ -5,11 +5,12 @@ add_indentation()
 # should be
 show_pages([
         Page("pages/title.py", "Home"),
-        Page("pages/introduction.py", "Introduction"),
-        Page("pages/methodology.py", "Methodology"),
-        Page("pages/dataset.py", "Dataset"),
-        Page("pages/results.py", "Results"),
-        Page("pages/recommender_engine.py", "Recommender Engine")
+        Page("pages/introduction_trends.py", "Introduction and Trends"),
+        Page("pages/objectives_methodology_scopes.py", "Objectives, Methodology, and Scopes and Limitations"),
+        Page("pages/data_extraction_eda_ml.py", "Data Extraction, EDA and Machine Learning"),
+        Page("pages/recommender_engine.py", "Recommender Engine"),
+        Page("pages/conclusion.py", "Conclusion"),
+        Page("pages/final.py", "Final Slide")
     ]
 )
 
