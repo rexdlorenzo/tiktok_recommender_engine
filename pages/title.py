@@ -15,25 +15,27 @@ sns.set()
 
 def title():
     # Write the title and the subheader
-    st.title("Going Viral: Using Data Science to Promote Filipino Music on TikTok"
+    st.title("GOING VIRAL: USING DATA SCIENCE TO PROMOTE FILIPINO MUSIC ON TIKTOK"
     )
     st.subheader(
         """
-        A data Driven Approach
+        A Data Driven Approach
         """
     )
     st.subheader(
         """
-        A project by Martel, Ben, Zee, and Rex of DSF11 Eskwelabs
+        COHORT 11 SPRINT 3 GROUP BRMZ-RADIO
         """
     )
 
-    # Load photo
-    st.image("streamlit-photo-1.jpeg")
-
-
-    # Display data
-    st.markdown("**The Data**")
-    st.markdown("Source: Global Findex 2021 from World Bank.")
+    st.subheader(
+        """
+        Prepared by:
+        Ben Estera
+        Martel Espiritu,
+        Zee Halagao,
+        Rex Lorenzo
+        """
+    )
 
 title()
