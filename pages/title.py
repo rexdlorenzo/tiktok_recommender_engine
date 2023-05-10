@@ -31,7 +31,7 @@ def title():
     st.subheader(
         """
         Prepared by:
-        Ben Estera
+        Ben Estera,
         Martel Espiritu,
         Zee Halagao,
         Rex Lorenzo
