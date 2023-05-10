@@ -50,9 +50,7 @@ def conclusion3():
     st.image("images/conclusion3.png")
     st.markdown(
         """
-        For Objective #3: How are we  going to improve the popularity of rising Philippine artists given the data and ML model that we have created?
-
-        So, onto the next slide.
+        To improve the popularity of rising Philippine artists, we have developed a data-driven approach using a machine learning model. Our recommender engine analyzes an artist’s album listed on Spotify and suggests tracks with the potential to become popular on TikTok. The engine takes into account 5 different genres commonly found among popular TikTok tracks. By leveraging the suggestions provided by our recommender engine and combining them with the artist’s and their team’s expertise, they can strategically promote specific tracks to increase their popularity on TikTok.  
         """
     )
 
