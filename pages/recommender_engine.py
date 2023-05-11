@@ -65,7 +65,7 @@ def recommender_engine():
 
     auth_manager, sp = create_spotify()
 
-    with inp.form(key='my_form'):
+    with inp.form(key='my_form', clear_on_submit=True):
         album_input = st.text_input(label='Enter Album')
         artist_input = st.text_input(label='Enter Artist/Band')
         submit_button = st.form_submit_button(label='Submit')
