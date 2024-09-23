@@ -1,16 +1,8 @@
 from st_pages import add_indentation
-
 import streamlit as st
-
-import pandas as pd
-#from sklearn.preprocessing import StandardScaler
-import pickle
-import numpy as np
 import pandas as pd
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
-#import keyring
-import time
 import joblib
 from sklearn.metrics.pairwise import euclidean_distances, manhattan_distances, cosine_similarity
 
