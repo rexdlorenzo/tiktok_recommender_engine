@@ -1,16 +1,8 @@
 from st_pages import add_indentation
-
 import streamlit as st
-
-import pandas as pd
-#from sklearn.preprocessing import StandardScaler
-import pickle
-import numpy as np
 import pandas as pd
 import spotipy
-from spotipy.oauth2 import SpotifyClientCredentials
-#import keyring
-import time
+from spotipy.oauth2 import SpotifyOAuth
 import joblib
 from sklearn.metrics.pairwise import euclidean_distances, manhattan_distances, cosine_similarity
 
@@ -34,22 +26,45 @@ def recommender_engine():
         """
     )
 #####################################################
-    my_client_id = st.secrets.cred.client_id
-    my_client_secret = st.secrets.cred.client_secret
+    client_id = st.secrets.cred.client_id
+    client_secret = st.secrets.cred.client_secret
+    redirect_uri = st.secrets.cred.redirect_uri
+    username = st.secrets.cred.username
+    
+    scope_playlist = 'playlist-modify-public'
+    scope_user = 'user-library-modify'
 
-    client_credentials_manager = SpotifyClientCredentials(client_id=my_client_id,
-                                                        client_secret=my_client_secret)
-    sp = spotipy.Spotify(client_credentials_manager = client_credentials_manager)
+    def create_spotify():
+        auth_manager = SpotifyOAuth(
+            scope=[scope_user, scope_playlist],
+            username=username,
+            redirect_uri=redirect_uri,
+            client_id=client_id,
+            client_secret= client_secret)
 
+        sp = spotipy.Spotify(auth_manager = auth_manager)
+    
+        return auth_manager, sp
+    
+    def refresh_spotify(auth_manager, spotify):
+        token_info = auth_manager.cache_handler.get_cached_token()
+        if auth_manager.is_token_expired(token_info):
+            auth_manager, spotify = create_spotify()
+        return auth_manager, spotify
+
+        
     inp, res = st.columns(2)
 
-    with inp.form(key='my_form'):
+    auth_manager, sp = create_spotify()
+
+    with inp.form(key='my_form', clear_on_submit=True):
         album_input = st.text_input(label='Enter Album')
         artist_input = st.text_input(label='Enter Artist/Band')
         submit_button = st.form_submit_button(label='Submit')
 
         if submit_button:
             st.write(f'You entered: {album_input} and {artist_input}')
+            auth_manager, sp = refresh_spotify(auth_manager, sp)
             results = sp.search(q='album:{} artist:{}'.format(album_input, artist_input), type='album')
             items = results["albums"]["items"]
             
@@ -62,11 +77,12 @@ def recommender_engine():
                 album_data = sp.album_tracks(album_id)
                 album_tracks = album_data["items"]
                 audio_features_dict = {}
+                track_list_df = pd.DataFrame([{'track_id': track['id'], 'track_name': track['name']} for track in album_tracks])
                 for track in album_tracks:
                     try:
                         # Get track ID
                         track_id = track['id']
-
+                       
                         # Get track audio features
                         audio_features = sp.audio_features(track_id)[0]
 
@@ -85,7 +101,7 @@ def recommender_engine():
                             'tempo': audio_features['tempo']
                         }
                     except:
-                        print(f"No audio features found for track '{track['name']}'")
+                        st.subheader(f"No audio features found for track '{track['name']}'")
                 the_df = pd.DataFrame(audio_features_dict)
                 the_df = the_df.T
                 st.subheader("Here are the tracks in the album:")
@@ -162,8 +178,15 @@ def recommender_engine():
                 the_df[dist_feature_cols] = the_df['all_distances_features'].apply(pd.Series)
                 rnb_recommendation_df = the_df['euclidean_dist_features'].sort_values(ascending=True)
                 res.write(f"Recommended Track for R&B: {rnb_recommendation_df.index[0]}")
-
-
+                recommended_list = list(set([hiphop_recommendation_df.index[0], EDM_recommendation_df.index[0], indie_recommendation_df.index[0], pop_recommendation_df.index[0], rnb_recommendation_df.index[0]]))
+                filtered_track_list_df = track_list_df[track_list_df['track_name'].isin(recommended_list)]
+                track_ids_list = list(filtered_track_list_df.sort_values(by='track_name', key=lambda x: x.map({v: i for i, v in enumerate(recommended_list)}))['track_id'])
+                new_playlist_name = f"Top tiktokable tracks from the album {album_input} by {artist_input}"
+                new_playlist = sp.user_playlist_create(username, name = new_playlist_name)
+                playlist_id = new_playlist['id']
+                sp.user_playlist_add_tracks(username, playlist_id, track_ids_list)
+                href = f"https://open.spotify.com/playlist/{playlist_id}"
+                res.write(f"Spotify playlist: [{new_playlist_name}](%s)" % href)
 def artist1():
     st.header("TIKTOK Recommender engine: Sample Output 1 - Upbeat Album")
     st.image("images/bgyo.png")
